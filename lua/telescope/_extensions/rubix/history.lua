@@ -71,9 +71,7 @@ local all_files = function()
   return files
 end
 
-local telescope = {}
-
-telescope.history = function(opts)
+return function(opts)
   pickers.new(opts, {
     prompt_title = 'History',
     finder = finders.new_table {
@@ -84,5 +82,3 @@ telescope.history = function(opts)
     sorter = conf.file_sorter(opts),
   }):find()
 end
-
-return telescope
