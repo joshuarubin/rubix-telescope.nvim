@@ -7,12 +7,14 @@ local path_to_dir = function(path)
 end
 
 local bufdir = function(bufnr)
+	local cwd = vim.fn.getcwd(vim.fn.bufwinnr(bufnr))
+
 	-- if buffer is a terminal, return its cwd
 	if vim.fn.getbufvar(bufnr, "&buftype") == "terminal" then
-		return vim.fn.getcwd(vim.fn.bufwinnr(bufnr))
+		return cwd
 	end
 
-	return path_to_dir(vim.fn.bufname(bufnr))
+	return vim.fs.normalize(cwd .. "/" .. path_to_dir(vim.fn.bufname(bufnr)))
 end
 
 local path_to_project_dir = function(path, allow_empty)
