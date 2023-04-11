@@ -4,7 +4,7 @@ local conf = require("telescope.config").values
 local make_entry = require("telescope.make_entry")
 
 local exists = function(table, key)
-	for k, v in ipairs(table) do
+	for k, _ in ipairs(table) do
 		if k == key then
 			return true
 		end
@@ -75,13 +75,15 @@ end
 
 return function(opts)
 	opts = opts or {}
-	pickers.new(opts, {
-		prompt_title = "History",
-		finder = finders.new_table({
-			results = all_files(),
-			entry_maker = make_entry.gen_from_file(opts),
-		}),
-		previewer = conf.file_previewer(opts),
-		sorter = conf.file_sorter(opts),
-	}):find()
+	pickers
+		.new(opts, {
+			prompt_title = "History",
+			finder = finders.new_table({
+				results = all_files(),
+				entry_maker = make_entry.gen_from_file(opts),
+			}),
+			previewer = conf.file_previewer(opts),
+			sorter = conf.file_sorter(opts),
+		})
+		:find()
 end
