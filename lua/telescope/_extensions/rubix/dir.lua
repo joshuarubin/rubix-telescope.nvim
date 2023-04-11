@@ -14,7 +14,14 @@ local bufdir = function(bufnr)
 		return cwd
 	end
 
-	return vim.fs.normalize(cwd .. "/" .. path_to_dir(vim.fn.bufname(bufnr)))
+	local name = vim.fn.bufname(bufnr)
+
+	if string.sub(name, 1, 1) ~= "/" and string.sub(name, 1, 1) ~= "~" then
+		-- make absolute
+		name = cwd .. "/" .. name
+	end
+
+	return path_to_dir(vim.fs.normalize(name))
 end
 
 local path_to_project_dir = function(path, allow_empty)
