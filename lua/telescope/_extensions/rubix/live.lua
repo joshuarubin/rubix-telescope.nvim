@@ -1,5 +1,5 @@
 local builtin = require("telescope.builtin")
-local dir = require("telescope._extensions.rubix.dir")
+local dir = require("rubix/dir")
 
 return function(opts)
 	opts = opts or {}
